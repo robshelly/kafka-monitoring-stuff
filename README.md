@@ -40,7 +40,7 @@ The following things will be installed:
 * global monitoring components for centralised metrics
 
 ```sh
-make install/monitoring/global
+make monitoring/global
 ```
 
 ### 3) Install *in-cluster* components *only*
@@ -53,9 +53,9 @@ The following things will be installed:
 * a kafka cluster
 
 ```sh
-make install/strimzi/operator
-make install/monitoring/cluster
-make install/kafka/cr
+make strimzi/operator
+make monitoring/cluster
+make kafka/cr
 ```
 
 ### 4) Install *in-cluster* strimzi & kafka components *only* (no monitoring)
@@ -66,8 +66,8 @@ The following things will be installed:
 * a kafka cluster
 
 ```sh
-make install/strimzi/operator
-make install/kafka/cr
+make strimzi/operator
+make kafka/cr
 ```
 
 ### 5) Install *in-cluster* monitoring components *only*
@@ -81,13 +81,13 @@ The following things will be installed:
 
 
 ```sh
-make install/monitoring/cluster
+make monitoring/cluster
 ```
 
 To specify which namespace strimzi & kafka are in, run the cmd with the following vars:
 
 ```sh
-STRIMZI_OPERATOR_NAMESPACE=my-strimzi-ns KAFKA_CLUSTER_NAMESPACE=my-kafka-ns make install/monitoring/cluster
+STRIMZI_OPERATOR_NAMESPACE=my-strimzi-ns KAFKA_CLUSTER_NAMESPACE=my-kafka-ns make monitoring/cluster
 ```
 
 ## Uninstallation

@@ -15,8 +15,8 @@ export GLOBAL_GRAFANA ?= kafka-grafana-global
 RESOURCE_FILES_DIR ?= ./resources
 BUILD_DIR := build
 
-.PHONY: install/monitoring/cluster
-install/monitoring/cluster:
+.PHONY:monitoring/cluster
+monitoring/cluster:
   # create yaml files
 	@ mkdir -p ./$(BUILD_DIR)/monitoring-cluster
 	@ cp $(RESOURCE_FILES_DIR)/monitoring-cluster/operatorgroup.yaml ./$(BUILD_DIR)/monitoring-cluster/
@@ -54,8 +54,8 @@ uninstall/monitoring/cluster:
 	@oc delete namespace $(PER_CLUSTER_GRAFANA_NAMESPACE)
 	@echo "completed uninstallation of cluster monitoring stack"
 
-.PHONY: install/strimzi/operator
-install/strimzi/operator:
+.PHONY:strimzi/operator
+strimzi/operator:
 	make -C resources/operator all
 
 .PHONY: uninstall/strimzi/operator
@@ -63,8 +63,8 @@ uninstall/strimzi/operator:
 	@oc delete namespace $(STRIMZI_OPERATOR_NAMESPACE)
 	@echo "completed uninstallation of strimzi operator"
 
-.PHONY: install/kafka/cr
-install/kafka/cr:
+.PHONY:kafka/cr
+kafka/cr:
 	make -C resources/kafka all
 
 .PHONY: uninstall/kafka/cr
@@ -72,15 +72,15 @@ uninstall/kafka/cr:
 	@oc delete namespace $(KAFKA_CLUSTER_NAMESPACE)
 	@echo "completed uninstallation of kafka cluster"
 
-.PHONY: install/monitoring/global
-install/monitoring/global:
+.PHONY:monitoring/global
+monitoring/global:
 	make -C resources/monitoring-global all
 
 .PHONY: uninstall/monitoring/global
 uninstall/monitoring/global:
 	make -C resources/monitoring-global uninstall
 
-all: install/strimzi/operator install/kafka/cr install/monitoring/global install/monitoring/cluster
+all: strimzi/operator kafka/cr monitoring/global monitoring/cluster
 	@echo "done installing kafka monitoring demo"
 
 clean: uninstall/kafka/cr uninstall/strimzi/operator uninstall/monitoring/global uninstall/monitoring/cluster
